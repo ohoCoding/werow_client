@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const PostListPage = () => {
   return (
     <div>
-      <Link to="login"><Button>버튼</Button></Link>
+      <Link to="login"><Button>GO</Button></Link>
     </div>
   )
 };
