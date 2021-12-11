@@ -6,6 +6,10 @@ const CHANGE_FIELD = 'auth/CHANGE_FIELD';
 const SAMPLE_ACTION = 'auth/SAMPLE_ACTION';
 const INITIALIZE_FORM = 'auth/INITIALIZE_FORM';
 
+const REGISTER = 'auth/REGISTER';
+const REGISTER_SUCCESS = 'auth/REGISTER_SUCCESS';
+const REGISTER_FAILURE = 'auth/REGISTER_FAILURE';
+
 // 액션 객체를 만드는 액션 생성함수 작성
 // export const sampleAction = createAction(SAMPLE_ACTION);
 
