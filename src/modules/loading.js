@@ -11,7 +11,7 @@ export const startLoading = createAction(
   requestType => requestType,
 );
 
-export const finishiLoading = createAction(
+export const finishLoading = createAction(
   FINISH_LOADING,
   requestType => requestType,
 );
