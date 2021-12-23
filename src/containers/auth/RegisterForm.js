@@ -74,4 +74,4 @@ const RegisterForm = ({history}) => {
     />
   );
 };
-export default withEouter(RegisterForm);
+export default withRouter(RegisterForm);
