@@ -2,15 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import Responsive from "./Responsive";
 import Button from "./Button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
     return (
         <>
             <HeaderBlock>
                 <Wrapper>
-                    <div className="logo">REACTERS</div>
-                    <div className="right">
-                        <Button>로그인</Button>
+                    <div className="logo">강의사이트</div>
+                    <div className="login">
+                    <Link to="login"><Button>로그인</Button></Link>
+                    </div>
+                    <div className="register">
+                    <Link to="register"><Button>회원가입</Button></Link>
                     </div>
                 </Wrapper>
             </HeaderBlock>
@@ -38,11 +42,19 @@ const HeaderBlock = styled.div`
     .logo{
         font-size: 1.125rem;
         font-weightL 800;
-        letter-spacing: 2px;
+        letter-spacing: 5px;
+        align-items: center;
+        padding-left: 20rem;
     }
-    .right{
+    .login{
         display: flex;
         align-items: center;
+        padding-left: 300px;
+    }
+    .register{
+        display: flex;
+        align-items: center;
+        
     }
  `;
 

@@ -20,15 +20,15 @@ function App() {
       {/* <Problem title={'검증수'}/> */}
        {/* <h1><Link to="/Todos">문제풀러가기</Link></h1> */}
       <Switch>
-        {/* <Route exact path ='/Todos' element = {<Todos/>} />
-        <Route exact path ='/TodoProblem' element ={<TodoProblem/>} />
-        <Route exact path ='/problem' element ={<Problem />} /> */}
-        <Route exact path ='/@:username' element={<PostListPage/>}/>
-        <Route exact path ='/login' element ={<LoginPage/>} />
-        <Route exact path ='/register' element ={<RegisterPage/>} />
-        <Route exact path ='/write' element={<WritePage/>} />
+        {/* <Route exact path ='/Todos' component = {<Todos/>} />
+        <Route exact path ='/TodoProblem' component ={<TodoProblem/>} />
+        <Route exact path ='/problem' component ={<Problem />} /> */}
+        <Route exact path ='/@:username' component={PostListPage}/>
+        <Route exact path ='/login' component ={LoginPage} />
+        <Route exact path ='/register' component ={RegisterPage} />
+        <Route exact path ='/write' component={WritePage} />
         <Route exact path ='/' component={PostListPage}/>
-        <Route exact path ='/@:username/:postId' element={<PostPage/>} />
+        <Route exact path ='/@:username/:postId' component={PostPage} />
       </Switch>
       
       {/* <Todos/> */}
