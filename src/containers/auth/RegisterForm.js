@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeField, initializeForm } from "../../modules/auth";
+import { changeField, initializeForm, register } from "../../modules/auth";
 import AuthForm from "../../components/auth/AuthForm";
-import { register } from "../../lib/api/auth";
 import { check } from '../../modules/user';
 import { withRouter } from 'react-router-dom';
 
@@ -27,7 +26,10 @@ const RegisterForm = ({history}) => {
       })
     );
   };
-
+  //컴포넌트 처음 렌더링 될때 form 초기화
+  useEffect(() => {
+    dispatch(initializeForm('register'));
+  },[dispatch])
   //폼 등록 이벤트 핸들러 
   const onSubmit = e => {
     e.preventDefault();
