@@ -4,18 +4,22 @@ import Responsive from "./Responsive";
 import Button from "./Button";
 import { Link } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ user }) => {
     return (
         <>
             <HeaderBlock>
                 <Wrapper>
                     <div className="logo">강의사이트</div>
-                    <div className="login">
-                    <Link to="login"><Button>로그인</Button></Link>
-                    </div>
-                    <div className="register">
-                    <Link to="register"><Button>회원가입</Button></Link>
-                    </div>
+                    {user? (
+                     <div className = "right">
+                      <UserInfo>{user.username}</UserInfo>
+                      <Button>로그아웃</Button>
+                     </div>   
+                    ): (
+                      <div className="login">
+                      <Link to="login"><Button>로그인</Button></Link>
+                      </div>      
+                    )}
                 </Wrapper>
             </HeaderBlock>
             <Spacer/>
@@ -65,4 +69,8 @@ const HeaderBlock = styled.div`
     height: 4rem;
  `;
 
+ const UserInfo = styled.div`
+    font-weight: 800;
+    margin-right: 1rem;
+ `
  export default Header;
