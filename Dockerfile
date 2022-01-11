@@ -12,5 +12,6 @@ RUN npm install react-scripts@3.0.1 -g --silent
 RUN npm uninstall eslint
 RUN npm i eslint@7.11.0
 
+COPY . /app
 # start app 
 CMD ["npm", "start"]
