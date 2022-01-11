@@ -1,15 +1,8 @@
-FROM node:12.2.0-alpine
+FROM node:14.15.4
 
-# set working directory
-WORKDIR /app
+RUN npm install -g serve
 
-# `/app/node_modules/.bin`을 $PATH 에 추가
-ENV PATH /app/node_modules/.bin:$PATH
+RUN mkdir ./build
+COPY ./build ./build
 
-# app dependencies, install 및 caching
-COPY package.json /app/package.json
-RUN yarn
-# RUN npm install react-scripts@3.0.1 -g
-
-# 앱 실행
-CMD ["npm", "start"]
+ENTRYPOINT ["serve", "-s", "build"]
