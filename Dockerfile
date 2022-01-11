@@ -4,10 +4,12 @@ FROM node:14-alpine
 RUN mkdir /app
 WORKDIR /app
 ENV PATH /app/node_modules/.bin:$PATH
-COPY package.json /app/package.json
-RUN npm install --silent
-RUN npm install react-scripts@4.0.3 -g --silent
+#COPY package.json /app/package.json
+COPY . /app
+RUN npm install --global yarn
+RUN yarn
+#RUN npm install react-scripts@4.0.3 -g --silent
 
 # 소스를 작업폴더로 복사하고 앱 실행
-COPY . /app
+
 CMD ["npm", "start"]
