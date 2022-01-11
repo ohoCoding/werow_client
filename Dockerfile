@@ -1,4 +1,4 @@
-FROM node:16.13.2
+FROM node:lts
 
 # 작업 폴더를 만들고 npm 설치
 RUN mkdir /usr/src/app
