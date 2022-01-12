@@ -4,8 +4,8 @@ import palette from "../../lib/styles/palette";
 import { Link } from "react-router-dom";
 /* 회원가입 및 로그인 페이지의 레이아웃을 담당 하는 페이지 */
 
-const AuthTemplate = ({children}) => {
-  return( 
+const AuthTemplate = ({ children }) => {
+  return(
     <AuthTemplateBlock>
       <WhiteBox>
         <div className="logo-area">
