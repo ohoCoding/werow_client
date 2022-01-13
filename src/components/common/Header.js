@@ -9,7 +9,7 @@ const Header = ({ user,onLogout }) => {
         <>
             <HeaderBlock>
                 <Wrapper>
-                    <div className="logo">강의사이트</div>
+                    <div className="logo">연습</div>
                     {user? (
                      <div className = "right">
                       <UserInfo>{user.username}</UserInfo>
