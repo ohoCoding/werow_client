@@ -133,21 +133,21 @@ const LoginDB = (userId: string, password: string) => {
 };
 
 // 회원가입
-const SignupDB = (userName: string, password: string, nickName: string, email: string, phone: string) => {
+const SignupDB = (data: any) => {
+    console.log(data.userEmail);
     return function (dispatch: any, getState: any, { history }: any): void {
         // 회원 가입 시 작성한 유저 정보를 서버에 보내줌
-        axios({
-            method: 'post',
-            url: `${config.api}/api/user/signup`,
-            data: {
-                userName,
-                password,
-                nickName,
-                email,
-                phone,
+        axios.post(`https://0giri.com/api/users`,
+            {
+                email: data.userEmail,
+                nickname: data.nickname,
+                password: data.password,
+                photo: data.photo,
+                provider: data.provider,
             },
-        })
-            .then(() => {
+        )
+            .then((response) => {
+                console.log(response);
                 // 전송 후 로그인 페이지로 이동
                 history.push('/user/login');
             })

@@ -7,14 +7,14 @@ import { actionCreators as userActions } from '../redux/modules/user';
 function Login(props: { history: any }) {
     const { history } = props;
     const dispatch = useDispatch();
-    const [userId, SetUserId] = useState<string>('');
+    const [nickname, SetNickname] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const login = () => {
-        if (userId === '' || password === '') {
+        if (nickname === '' || password === '') {
             window.alert('로그인 정보를 모두 입력해주세요.');
             return;
         }
-        dispatch(userActions.LoginDB(userId, password));
+        dispatch(userActions.LoginDB(nickname, password));
     };
     return (
         <Container>
@@ -34,7 +34,7 @@ function Login(props: { history: any }) {
                         type="text"
                         placeholder="이메일"
                         onChange={(e) => {
-                            SetUserId(e.target.value);
+                            SetNickname(e.target.value);
                         }}
                     />
                 </InputBox>

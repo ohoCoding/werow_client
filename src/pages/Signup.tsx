@@ -2,26 +2,30 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
-import { emailCheck, idCheck, phoneNumCheck } from '../shared/common';
+import { emailCheck, idCheck } from '../shared/common';
 
 function Signup() {
     const dispatch = useDispatch();
-    const [userId, SetUserId] = useState<string>('');
+    const [provider, setProvider] = useState<string>('EMAIL')
+    const [nickname, SetNickname] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [passwordCheck, setPasswordCheck] = useState<string>('');
-    const [userName, setUserName] = useState<string>('');
+    // const [userName, setUserName] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
-    const [phoneNum, setPhoneNum] = useState<string>('');
+    // const [phoneNum, setPhoneNum] = useState<string>('');
+    const [photo, setPhotoNum] = useState ('');
+
 
     const signup = (): void => {
         // 유효성 검증
         if (
-            userId === '' ||
+            nickname === '' ||
             password === '' ||
             passwordCheck === '' ||
-            userName === '' ||
+            // userName === '' ||
             userEmail === '' ||
-            phoneNum === ''
+            // phoneNum === '' ||
+            photo === ''
         ) {
             window.alert('회원 정보를 모두 입력하세요.');
             return;
@@ -34,20 +38,38 @@ function Signup() {
             window.alert('비밀번호는 형식이 맞지 않습니다.');
             return;
         }
-        if (!idCheck(userId) || userId.length < 4 || userId.length > 16) {
-            window.alert('아이디 형식이 맞지 않습니다.');
+        if (!idCheck(nickname) || nickname.length < 4 || nickname.length > 16) {
+            window.alert('닉네임 형식이 맞지 않습니다.');
             return;
         }
         if (!emailCheck(userEmail)) {
             window.alert('이메일 형식이 맞지 않습니다.');
             return;
         }
-        if (!phoneNumCheck(phoneNum)) {
-            window.alert('핸드폰 형식이 맞지 않습니다.');
-            return;
+        // if (!phoneNumCheck(phoneNum)) {
+        //     window.alert('핸드폰 형식이 맞지 않습니다.');
+        //     return;
+        // }
+        const data = {
+            userEmail, nickname, password, photo, provider
         }
-        dispatch(userActions.SignupDB(userId, password, userName, userEmail, phoneNum));
+        dispatch(userActions.SignupDB(data));
     };
+
+    const handleFileOnChange = (event : any) => {
+        event.preventDefault();
+        const file = event.target.files[0];
+        // const reader = new FileReader();
+        setPhotoNum(file);
+
+    //     reader.onloadend = (e) => {
+    //       setPhotoNum(file);
+    //       setPreviewURL(reader.result);
+    //     }
+    //     if(file)
+    //       reader.readAsDataURL(file);
+    //   }
+    }
     return (
         <>
             <Container>
@@ -64,18 +86,18 @@ function Signup() {
                     <SignupBox>
                         <table>
                             <tbody>
-                                {/* <tr>
-                                    <th>아이디</th>
+                                <tr>
+                                    <th>닉네임</th>
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="영문, 숫자 4~16자"
+                                            placeholder="한글, 영문, 숫자 4~16자"
                                             onChange={(e) => {
-                                                SetUserId(e.target.value);
+                                                SetNickname(e.target.value);
                                             }}
                                         />
                                     </td>
-                                </tr> */}
+                                </tr>
                                   <tr>
                                     <th>이메일</th>
                                     <td>
@@ -111,7 +133,7 @@ function Signup() {
                                         />
                                     </td>
                                 </tr>
-                                <tr>
+                                {/* <tr>
                                     <th>이름</th>
                                     <td>
                                         <input
@@ -122,7 +144,7 @@ function Signup() {
                                             }}
                                         />
                                     </td>
-                                </tr>
+                                </tr> */}
                                 {/* <tr>
                                     <th>이메일</th>
                                     <td>
@@ -136,15 +158,17 @@ function Signup() {
                                     </td>
                                 </tr> */}
                                 <tr>
-                                    <th>휴대폰 번호</th>
+                                    <th>사진</th>
                                     <td>
-                                        <input
+                                        {/* <input
                                             type="text"
                                             placeholder="ex) 010-0000-0000"
                                             onChange={(e) => {
-                                                setPhoneNum(e.target.value);
+                                                setPhoto(e.target.value);
                                             }}
-                                        />
+                                        /> */}
+                                        <input type="file"
+                                        onChange={handleFileOnChange}></input>
                                     </td>
                                 </tr>
                             </tbody>
