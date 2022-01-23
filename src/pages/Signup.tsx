@@ -74,7 +74,7 @@ function Signup() {
         <>
             <Container>
                 <Header>
-                    <HeaderImg src="" alt="WEROW" />
+                    <HeaderImg src="" alt="WEROW"/>
                 </Header>
                 <MainContainer>
                     <TitleBox>
@@ -91,7 +91,7 @@ function Signup() {
                                     <td>
                                         <input
                                             type="text"
-                                            placeholder="한글, 영문, 숫자 4~16자"
+                                            placeholder="한글 4~16자"
                                             onChange={(e) => {
                                                 SetNickname(e.target.value);
                                             }}
