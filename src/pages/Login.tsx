@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { actionCreators as userActions } from '../redux/modules/user';
-
 // 로그인 페이지
 function Login(props: { history: any }) {
+    const CLIENT_ID = "b49d403eab459f2dcb5d7b635c14139b";
+    const REDIRECT_URI = "http://localhost:3000/api/oauth2/kakao";
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
     const { history } = props;
     const dispatch = useDispatch();
     const [nickname, SetNickname] = useState<string>('');
@@ -66,17 +70,16 @@ function Login(props: { history: any }) {
                 <SnsBox>
                     <SnsText>SNS로 시작하기</SnsText>
                     <SnsBtnBox>
-                        <KakaoBtn
-                            onClick={() => {
-                                history.push('/prepare');
-                            }}
-                        >
+                        <h1><a href={KAKAO_AUTH_URL}>
+                            <img src="../img/kakao_login.png" id="kakao-login-btn" width="200px" alt='카카오로그인' />
+                            </a></h1>
+                        {/* <KakaoBtn {...KAKAO_AUTH_URL}>
                             <img
                                 src="https://auth.dano.me/res/images/49c343639ceea64b1fe7f46e2d6442ef.svg"
                                 alt="카톡"
                             />
                             카카오톡
-                        </KakaoBtn>
+                        </KakaoBtn> */}
 
                         <AppleBtn
                             onClick={() => {

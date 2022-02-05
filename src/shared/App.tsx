@@ -9,6 +9,7 @@ import { actionCreators as userActions } from '../redux/modules/user';
 import Signup from '../pages/Signup';
 import Login from '../pages/Login';
 import Main from '../pages/Main';
+import OAuth from "./OAuth";
 
 function App() {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/" exact component={Main} />
                 <Route path="/user/signup" exact component={Signup} />
                 <Route path="/user/login" exact component={Login} />
+                <Route path="/api/oauth2/kakao" exact component={OAuth} />
             </ConnectedRouter>
         </>
     );
