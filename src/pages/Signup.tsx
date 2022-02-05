@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { actionCreators as userActions } from '../redux/modules/user';
-import { emailCheck, idCheck } from '../shared/common';
+import { emailCheck, idCheck, nicknameCheck } from '../shared/common';
 
 function Signup() {
     const dispatch = useDispatch();
@@ -13,7 +13,7 @@ function Signup() {
     // const [userName, setUserName] = useState<string>('');
     const [userEmail, setUserEmail] = useState<string>('');
     // const [phoneNum, setPhoneNum] = useState<string>('');
-    const [photo, setPhotoNum] = useState ('');
+    // const [photo, setPhotoNum] = useState ('');
 
 
     const signup = (): void => {
@@ -23,9 +23,9 @@ function Signup() {
             password === '' ||
             passwordCheck === '' ||
             // userName === '' ||
-            userEmail === '' ||
+            userEmail === ''
             // phoneNum === '' ||
-            photo === ''
+            // photo === ''
         ) {
             window.alert('회원 정보를 모두 입력하세요.');
             return;
@@ -38,7 +38,7 @@ function Signup() {
             window.alert('비밀번호는 형식이 맞지 않습니다.');
             return;
         }
-        if (!idCheck(nickname) || nickname.length < 4 || nickname.length > 16) {
+        if (!nicknameCheck(nickname) || nickname.length < 4 || nickname.length > 16) {
             window.alert('닉네임 형식이 맞지 않습니다.');
             return;
         }
@@ -51,16 +51,16 @@ function Signup() {
         //     return;
         // }
         const data = {
-            userEmail, nickname, password, photo, provider
+            userEmail, nickname, password, provider
         }
         dispatch(userActions.SignupDB(data));
     };
 
-    const handleFileOnChange = (event : any) => {
-        event.preventDefault();
-        const file = event.target.files[0];
-        // const reader = new FileReader();
-        setPhotoNum(file);
+    // const handleFileOnChange = (event : any) => {
+    //     event.preventDefault();
+    //     const file = event.target.files[0];
+    //     // const reader = new FileReader();
+    //     setPhotoNum(file);
 
     //     reader.onloadend = (e) => {
     //       setPhotoNum(file);
@@ -69,7 +69,7 @@ function Signup() {
     //     if(file)
     //       reader.readAsDataURL(file);
     //   }
-    }
+    // }
     return (
         <>
             <Container>
@@ -157,20 +157,20 @@ function Signup() {
                                         />
                                     </td>
                                 </tr> */}
-                                <tr>
+                                {/* <tr>
                                     <th>사진</th>
                                     <td>
-                                        {/* <input
+                                        <input
                                             type="text"
                                             placeholder="ex) 010-0000-0000"
                                             onChange={(e) => {
                                                 setPhoto(e.target.value);
                                             }}
-                                        /> */}
+                                        />
                                         <input type="file"
                                         onChange={handleFileOnChange}></input>
                                     </td>
-                                </tr>
+                                </tr> */}
                             </tbody>
                         </table>
                     </SignupBox>

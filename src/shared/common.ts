@@ -10,6 +10,11 @@ export const idCheck = (id: string): boolean => {
     return _reg.test(id);
 };
 
+export const nicknameCheck = (nickname: string): boolean => {
+    const _reg = /^[ㄱ-ㅎㅏ-ㅣ가-힣]+$/;
+    return _reg.test(nickname);
+};
+
 export const phoneNumCheck = (phoneNum: string): boolean => {
     const _reg = /^\d{3}-\d{4}-\d{4}$/;
 
