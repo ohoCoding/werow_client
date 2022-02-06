@@ -1,6 +1,8 @@
 import { useHistory } from "react-router-dom";
 import { useEffect } from "react";
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { actionCreators as userActions } from '../redux/modules/user';
 
 function OAuth() {
     const REST_API_KEY = "b49d403eab459f2dcb5d7b635c14139b";
@@ -11,23 +13,10 @@ function OAuth() {
     const getcode = new URL(window.location.href).searchParams.get("code");
 
     const history = useHistory();
+    const dispatch = useDispatch();
 
-    const getToken = async () => {
-        return function() {
-            axios.post(`https://0giri.com/api/oauth2/kakao`,
-            {
-                code: getcode
-            }
-        )
-        .then((response) => {
-            console.log(response);
 
-        })
-        .catch((e) => {
-            window.alert(e.response.data);
-            console.log('에러 발생:', e);
-        });
-    };
+
         // const payload = qs.stringify({
         //   grant_type: "authorization_code",
         //   client_id: REST_API_KEY,
@@ -49,10 +38,10 @@ function OAuth() {
         //   } catch (err) {
         //     console.log(err);
         //   }
-};
-        useEffect(() => {
-          getToken();
-        }, []);
-    return null;
+    useEffect(() => {
+            console.log(getcode);
+            dispatch(userActions.Kakao(getcode));
+    }, []);
+    return null
 };
 export default OAuth;
