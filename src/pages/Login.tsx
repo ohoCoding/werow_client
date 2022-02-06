@@ -5,7 +5,7 @@ import { actionCreators as userActions } from '../redux/modules/user';
 // 로그인 페이지
 function Login(props: { history: any }) {
     const CLIENT_ID = "b49d403eab459f2dcb5d7b635c14139b";
-    const REDIRECT_URI = "https://0giri.com/api/oauth2/kakao";
+    const REDIRECT_URI = "https://0giri.com/oauth2/kakao";
     // const REDIRECT_URI = "http://localhost:3000/api/oauth2/kakao";
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
