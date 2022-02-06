@@ -150,7 +150,6 @@ const Kakao = (getcode: any) => {
             history.push('/');
         })
         .catch((e) => {
-            window.alert(e.response.data);
             console.log('에러 발생:', e);
         });
     };
