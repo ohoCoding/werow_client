@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { actionCreators as userActions } from '../redux/modules/user';
 // 로그인 페이지
@@ -11,14 +10,14 @@ function Login(props: { history: any }) {
 
     const { history } = props;
     const dispatch = useDispatch();
-    const [nickname, SetNickname] = useState<string>('');
+    const [email, SetEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const login = () => {
-        if (nickname === '' || password === '') {
+        if (email === '' || password === '') {
             window.alert('로그인 정보를 모두 입력해주세요.');
             return;
         }
-        dispatch(userActions.LoginDB(nickname, password));
+        dispatch(userActions.LoginDB(email, password));
     };
     return (
         <Container>
@@ -29,16 +28,12 @@ function Login(props: { history: any }) {
                 <TitleBox>
                     <Title>통합ID 로그인</Title>
                 </TitleBox>
-                {/* <LoginTitleBox>
-                    <LoginTitle>통합ID 로그인</LoginTitle>
-                </LoginTitleBox> */}
-
                 <InputBox>
                     <Input
                         type="text"
                         placeholder="이메일"
                         onChange={(e) => {
-                            SetNickname(e.target.value);
+                            SetEmail(e.target.value);
                         }}
                     />
                 </InputBox>
@@ -134,16 +129,6 @@ const Title = styled.div`
     text-align: center;
     color: #0d0d0d;
     margin-bottom: 5px;
-`;
-const LoginTitleBox = styled.div`
-    margin-top: 30px;
-`;
-const LoginTitle = styled.div`
-    color: #ff6f61;
-    font-weight: bold;
-    text-align: center;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #ff6f61;
 `;
 const InputBox = styled.div`
     margin-top: 15px;
