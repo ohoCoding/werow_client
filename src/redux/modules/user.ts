@@ -142,12 +142,12 @@ const LoginDB = (getemail: string, getpassword: string) => {
 };
 // 카카오 로그인
 const Kakao = (getcode: any) => {
-    return function() {
+    return function({history}: any) {
         axios.get(`https://0giri.com/api/oauth2/kakao?code=${getcode}`)
     .then((response) => {
         const responsedata = response.data
         console.log(responsedata);
-        // if(responsedata.isMember === false)
+        history.push('/');
     })
     .catch((e) => {
         window.alert(e.response.data);
