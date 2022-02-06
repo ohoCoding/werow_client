@@ -26,7 +26,7 @@ function App() {
                 <Route path="/" exact component={Main} />
                 <Route path="/user/signup" exact component={Signup} />
                 <Route path="/user/login" exact component={Login} />
-                <Route path="/api/oauth2/kakao" exact component={OAuth} />
+                <Route path="/oauth2/kakao" exact component={OAuth} />
             </ConnectedRouter>
         </>
     );
