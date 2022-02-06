@@ -14,9 +14,9 @@ function Header() {
     let menustyle;
     menu ? (menustyle = { display: 'block' }) : (menustyle = { display: 'none' });
     const user: UserInfo = useSelector((state: RootState) => state.user);
-    const name = user.user?.name;
+    const nickname = user.user?.nickname;
     const userLogin = user.isLogin;
-    const cookie = getCookie('is_login') ? true : false;
+    const cookie = getCookie('is_login_accessToken') ? true : false;
     if (cookie && userLogin) {
         return (
             <>
@@ -43,7 +43,7 @@ function Header() {
                                     history.push('/mypage');
                                 }}
                             >
-                                {name}님
+                                {nickname}님
                             </HeaderLi>
                             <HeaderLi
                                 onClick={() => {
