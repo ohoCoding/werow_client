@@ -1,8 +1,11 @@
 export interface User {
-    username: string;
-    name: string;
+    nickname: string;
     email: string;
-    phone: string;
+    photo: string;
+    id: string,
+    isFreelancer: boolean,
+    provider: string,
+    role: string,
 }
 
 export interface UserInfo {
