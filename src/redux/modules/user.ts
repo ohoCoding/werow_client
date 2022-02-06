@@ -53,16 +53,19 @@ const getUserDB = () => {
         axios.defaults.headers.common[Authorization] = `Bearer ${jwtToken}`;
         axios({
             method: 'get',
-            url: `${config.api}/api/user`,
+            url: `${config.api}/api/users/token`,
         })
             .then((res) => {
                 // 받은 유저 정보 저장
                 dispatch(
                     getUser({
-                        username: res.data.userName,
-                        name: res.data.nickName,
+                        nickname: res.data.nickname,
                         email: res.data.email,
-                        phone: res.data.phone,
+                        photo: res.data.photo,
+                        id: res.data.id,
+                        isFreelancer: res.data.isFreelancer,
+                        provider: res.data.provider,
+                        role: res.data.role,
                     }),
                 );
             })
@@ -89,10 +92,13 @@ const updateUserDB = (password: string, email: string, phone: string) => {
                 // 스토어에서도 최신 데이터로 변경
                 dispatch(
                     updateUser({
-                        username: res.data.userName,
-                        name: res.data.nickName,
+                        nickname: res.data.nickname,
                         email: res.data.email,
-                        phone: res.data.phone,
+                        photo: res.data.photo,
+                        id: res.data.id,
+                        isFreelancer: res.data.isFreelancer,
+                        provider: res.data.provider,
+                        role: res.data.role,
                     }),
                 );
                 window.alert('회원정보가 변경되었습니다!');
@@ -105,22 +111,25 @@ const updateUserDB = (password: string, email: string, phone: string) => {
 };
 
 // 로그인
-const LoginDB = (userId: string, password: string) => {
+const LoginDB = (getemail: string, getpassword: string) => {
     return function (dispatch: any, getState: any, { history }: any) {
         axios({
             method: 'post',
-            url: `${config.api}/api/user/login`,
+            url: `${config.api}/api/login/email`,
             data: {
-                userName: userId,
-                password,
+                email: getemail,
+                password: getpassword,
             },
         })
             .then((res) => {
-                const jwtToken = res.data;
+                console.log(res.data.accessToken);
+                console.log(res.data.refreshToken);
+                const {refreshToken,accessToken} = res.data;
                 // 받은 토큰을 쿠키에 저장
-                setCookie('is_login', jwtToken);
+                setCookie('is_login_accessToken', accessToken);
+                setCookie('is_login_refreshToken', refreshToken);
                 // 통신 시 헤더에 default로 저장
-                axios.defaults.headers.common[Authorization] = `Bearer ${jwtToken}`;
+                // axios.defaults.headers.common[Authorization] = `Bearer ${jwtToken}`;
                 // 로그인 후 회원 정보를 스토어에 최신화
                 dispatch(getUserDB());
                 history.push('/');
@@ -131,7 +140,21 @@ const LoginDB = (userId: string, password: string) => {
             });
     };
 };
-
+// 카카오 로그인
+const Kakao = (getcode: any) => {
+    return function() {
+        axios.get(`https://0giri.com/api/oauth2/kakao?code=${getcode}`)
+    .then((response) => {
+        const responsedata = response.data
+        console.log(responsedata);
+        // if(responsedata.isMember === false)
+    })
+    .catch((e) => {
+        window.alert(e.response.data);
+        console.log('에러 발생:', e);
+    });
+    };
+};
 // 회원가입
 const SignupDB = (data: any) => {
     console.log(data.userEmail);
@@ -193,6 +216,7 @@ export default handleActions(
 );
 
 const actionCreators = {
+    Kakao,
     SignupDB,
     LoginDB,
     getUserDB,
