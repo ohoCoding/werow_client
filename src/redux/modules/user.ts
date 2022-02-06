@@ -142,17 +142,17 @@ const LoginDB = (getemail: string, getpassword: string) => {
 };
 // 카카오 로그인
 const Kakao = (getcode: any) => {
-    return function({history}: any) {
+    return function ({ history }: any): void {
         axios.get(`https://0giri.com/api/oauth2/kakao?code=${getcode}`)
-    .then((response) => {
-        const responsedata = response.data
-        console.log(responsedata);
-        history.push('/');
-    })
-    .catch((e) => {
-        window.alert(e.response.data);
-        console.log('에러 발생:', e);
-    });
+        .then((response) => {
+            const responsedata = response.data
+            console.log(responsedata);
+            history.push('/');
+        })
+        .catch((e) => {
+            window.alert(e.response.data);
+            console.log('에러 발생:', e);
+        });
     };
 };
 // 회원가입
