@@ -142,7 +142,7 @@ const LoginDB = (getemail: string, getpassword: string) => {
 };
 // 카카오 로그인
 const Kakao = (getcode: any) => {
-    return function ({ history }: any): void {
+    return function ( history : any) {
         axios.get(`https://0giri.com/api/oauth2/kakao?code=${getcode}`)
         .then((response) => {
             const responsedata = response.data
