@@ -5,8 +5,8 @@ import { actionCreators as userActions } from '../redux/modules/user';
 // 로그인 페이지
 function Login(props: { history: any }) {
     const CLIENT_ID = "b49d403eab459f2dcb5d7b635c14139b";
-    const REDIRECT_URI = "https://0giri.com/oauth2/kakao";
-    // const REDIRECT_URI = "http://localhost:3000/api/oauth2/kakao";
+    // const REDIRECT_URI = "https://0giri.com/oauth2/kakao";
+    const REDIRECT_URI = "http://localhost:3000/oauth2/kakao";
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
     const { history } = props;
@@ -67,7 +67,8 @@ function Login(props: { history: any }) {
                     <SnsText>SNS로 시작하기</SnsText>
                     <SnsBtnBox>
                         <h1><a href={KAKAO_AUTH_URL}>
-                            <img src="../img/kakao_login.png" id="kakao-login-btn" width="200px" alt='카카오로그인' />
+                            <img src="../img/kakao_login.png"
+                            id="kakao-login-btn" width="180px" alt='카카오로그인' />
                             </a></h1>
                         {/* <KakaoBtn {...KAKAO_AUTH_URL}>
                             <img
@@ -77,17 +78,18 @@ function Login(props: { history: any }) {
                             카카오톡
                         </KakaoBtn> */}
 
-                        <AppleBtn
+                        {/* <AppleBtn
                             onClick={() => {
                                 history.push('/prepare');
                             }}
-                        >
+                        > */}
+                            <h1>
                             <img
-                                src="https://blog.kakaocdn.net/dn/czMTX6/btqNbvGUwIu/xxqSeZd4eRMvTHqbfIZUd0/img.png"
-                                alt="네이버"
+                                src="../img/naver_login.png"
+                                id="naver-login-btn" width="180px" alt='네이버로그인'
                             />
-                            NAVER
-                        </AppleBtn>
+                            </h1>
+                        {/* </AppleBtn> */}
                     </SnsBtnBox>
                 </SnsBox>
             </MainContainer>

@@ -1,20 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {useLocation} from 'react-router';
 import { actionCreators as userActions } from '../redux/modules/user';
 import { emailCheck, idCheck, nicknameCheck } from '../shared/common';
+import { history, RootState } from '../redux/configureStore';
+import { UserInfo } from '../type';
 
 function Signup() {
     const dispatch = useDispatch();
     const [provider, setProvider] = useState<string>('EMAIL')
     const [nickname, SetNickname] = useState<string>('');
+    const [userEmail, setUserEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [passwordCheck, setPasswordCheck] = useState<string>('');
-    // const [userName, setUserName] = useState<string>('');
-    const [userEmail, setUserEmail] = useState<string>('');
-    // const [phoneNum, setPhoneNum] = useState<string>('');
-    // const [photo, setPhotoNum] = useState ('');
 
+    const CLIENT_ID = "b49d403eab459f2dcb5d7b635c14139b";
+    // const REDIRECT_URI = "https://0giri.com/oauth2/kakao";
+    const REDIRECT_URI = "http://localhost:3000/oauth2/kakao";
+    const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+    const location = useLocation();
+    const data:any = location.state;
 
     const signup = (): void => {
         // 유효성 검증
@@ -55,7 +62,10 @@ function Signup() {
         }
         dispatch(userActions.SignupDB(data));
     };
+    useEffect(() => {
+        console.log(data);
 
+    })
     // const handleFileOnChange = (event : any) => {
     //     event.preventDefault();
     //     const file = event.target.files[0];
@@ -107,6 +117,8 @@ function Signup() {
                                             onChange={(e) => {
                                                 setUserEmail(e.target.value);
                                             }}
+                                            value={data? data?.email : null}
+                                            disabled={data}
                                         />
                                     </td>
                                 </tr>
@@ -177,6 +189,21 @@ function Signup() {
                     <div>
                         <SignupBtn onClick={signup}>통합 회원가입</SignupBtn>
                     </div>
+                    <SnsBtnBox>
+                    <h1>
+                        <a href={KAKAO_AUTH_URL}>
+                            <img src="../img/kakao_login.png"
+                            id="kakao-login-btn" width="180px" alt='카카오로그인' />
+                        </a>
+                    </h1>
+                    <h1>
+                            <img
+                                src="../img/naver_login.png"
+                                id="naver-login-btn" width="180px" alt='네이버로그인'
+                            />
+                    </h1>
+                    </SnsBtnBox>
+
                 </MainContainer>
             </Container>
         </>
@@ -280,4 +307,8 @@ const SignupBtn = styled.button`
     cursor: pointer;
 `;
 
+const SnsBtnBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
 export default Signup;

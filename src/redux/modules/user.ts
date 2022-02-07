@@ -5,8 +5,6 @@ import { setCookie, deleteCookie, getCookie } from '../../shared/Cookie';
 import  config  from '../../config';
 import { User, UserInfo } from '../../type';
 
-const Authorization = 'Authorization';
-
 // 액션
 const GET_USER = 'GET_USER';
 const LOG_OUT = 'LOG_OUT';
@@ -48,14 +46,16 @@ const deleteUserDB = () => {
 const getUserDB = () => {
     return function (dispatch: any) {
         // 토큰 값 조회
-        const jwtToken = getCookie('is_login');
+        const jwtToken = getCookie('is_login_accessToken');
+        console.log(jwtToken);
+        console.log(typeof jwtToken);
+
+
         // 새로고침 하면 헤더 default 날라가므로 다시 헤더에 토큰을 담아줌
-        axios.defaults.headers.common[Authorization] = `Bearer ${jwtToken}`;
-        axios({
-            method: 'get',
-            url: `${config.api}/api/users/token`,
+        axios.defaults.headers.common.Authorization = `Bearer ${jwtToken}`;
+        axios.get("https://0giri.com/api/users/token", {
         })
-            .then((res) => {
+        .then((res) => {
                 // 받은 유저 정보 저장
                 dispatch(
                     getUser({
@@ -68,10 +68,10 @@ const getUserDB = () => {
                         role: res.data.role,
                     }),
                 );
-            })
-            .catch((e) => {
-                console.log('에러발생', e);
-            });
+        })
+        .catch((e) => {
+            console.log('에러발생', e);
+        });
     };
 };
 
@@ -142,12 +142,21 @@ const LoginDB = (getemail: string, getpassword: string) => {
 };
 // 카카오 로그인
 const Kakao = (getcode: any) => {
-    return function ( history : any) {
+    return function (  dispatch: any, getState: any, { history }: any): void {
         axios.get(`https://0giri.com/api/oauth2/kakao?code=${getcode}`)
         .then((response) => {
             const responsedata = response.data
             console.log(responsedata);
-            history.push('/');
+            if(responsedata.isMember === false){
+                history.push(
+                    {
+                        pathname: '/user/signup',
+                        state: responsedata
+                    }
+                );
+            }else {
+                history.push('/');
+            }
         })
         .catch((e) => {
             console.log('에러 발생:', e);
