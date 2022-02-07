@@ -14,6 +14,7 @@ function Header() {
     let menustyle;
     menu ? (menustyle = { display: 'block' }) : (menustyle = { display: 'none' });
     const user: UserInfo = useSelector((state: RootState) => state.user);
+    const photo = user.user?.photo;
     const nickname = user.user?.nickname;
     const userLogin = user.isLogin;
     const cookie = getCookie('is_login_accessToken') ? true : false;
@@ -38,12 +39,13 @@ function Header() {
                             </Atag> */}
                         </div>
                         <HeaderTopUl>
+                            {photo}
                             <HeaderLi
                                 onClick={() => {
                                     history.push('/mypage');
                                 }}
                             >
-                                {nickname}님
+                                {nickname}님! 반가워요!
                             </HeaderLi>
                             <HeaderLi
                                 onClick={() => {

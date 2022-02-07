@@ -9,12 +9,12 @@ import store from './redux/configureStore';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
 
-axios.interceptors.request.use((config) => {
-    const token = getCookie('is_login');
-    config.headers.Authorization = `Bearer ${token}`;
+// axios.interceptors.request.use((config) => {
+//     const token = getCookie('is_login_accessToken');
+//     config.headers.Authorization = `Bearer ${token}`;
 
-    return config;
-});
+//     return config;
+// });
 
 ReactDOM.render(
     <Provider store={store}>
