@@ -20,8 +20,9 @@ function Signup() {
     const REDIRECT_URI = "http://localhost:3000/oauth2/kakao";
     const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
-    const location = useLocation();
-    const data:any = location.state;
+    const location:any = useLocation();
+    const info = location.state;
+    const [user,setUser] = useState([]);
 
     const signup = (): void => {
         // 유효성 검증
@@ -63,7 +64,8 @@ function Signup() {
         dispatch(userActions.SignupDB(data));
     };
     useEffect(() => {
-        console.log(data);
+
+        console.log(info);
 
     })
     // const handleFileOnChange = (event : any) => {
@@ -117,8 +119,8 @@ function Signup() {
                                             onChange={(e) => {
                                                 setUserEmail(e.target.value);
                                             }}
-                                            value={data? data?.email : null}
-                                            disabled={data}
+                                            defaultValue={info?.email}
+                                            disabled={info}
                                         />
                                     </td>
                                 </tr>
