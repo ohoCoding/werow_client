@@ -155,6 +155,12 @@ const Kakao = (getcode: any) => {
                     }
                 );
             }else {
+                const {refreshToken,accessToken} = responsedata;
+                // 받은 토큰을 쿠키에 저장
+                setCookie('is_login_accessToken', accessToken);
+                setCookie('is_login_refreshToken', refreshToken);
+                // 로그인 후 회원 정보를 스토어에 최신화
+                dispatch(getUserDB());
                 history.push('/');
             }
         })

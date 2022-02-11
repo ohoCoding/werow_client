@@ -22,13 +22,13 @@ function Main(props: { history: any }) {
     const loading = useSelector((state: RootState) => state.product.isLoading);
 
     useEffect(() => {
-        dispatch(productActions.getItemDB());
-        if (freeProducts.length === 0) {
-            dispatch(productActions.getfreeDB());
-        }
-        if (bestProducts.length === 0) {
-            dispatch(productActions.getBestDB());
-        }
+        // dispatch(productActions.getItemDB());
+        // if (freeProducts.length === 0) {
+        //     dispatch(productActions.getfreeDB());
+        // }
+        // if (bestProducts.length === 0) {
+        //     dispatch(productActions.getBestDB());
+        // }
     }, []);
 
     const frontProducts = products.slice(47, 51);

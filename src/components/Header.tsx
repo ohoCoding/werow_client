@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { history, RootState } from '../redux/configureStore';
@@ -14,10 +14,15 @@ function Header() {
     let menustyle;
     menu ? (menustyle = { display: 'block' }) : (menustyle = { display: 'none' });
     const user: UserInfo = useSelector((state: RootState) => state.user);
+    const provider = user.user?.provider;
     const photo = user.user?.photo;
     const nickname = user.user?.nickname;
     const userLogin = user.isLogin;
     const cookie = getCookie('is_login_accessToken') ? true : false;
+    useEffect(() => {
+        console.log(user);
+
+    })
     if (cookie && userLogin) {
         return (
             <>
@@ -39,7 +44,9 @@ function Header() {
                             </Atag> */}
                         </div>
                         <HeaderTopUl>
-                            {photo}
+                            {provider === 'EMAIL' ?
+                            <img src='https://t1.daumcdn.net/cfile/tistory/2513B53E55DB206927' height='30' width='30' alt='기본 프로필'></img> :
+                            <img src={photo} alt='' height='30' width='30' border-radius='50'></img>}
                             <HeaderLi
                                 onClick={() => {
                                     history.push('/mypage');

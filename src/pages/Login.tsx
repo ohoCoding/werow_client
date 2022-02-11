@@ -23,7 +23,7 @@ function Login(props: { history: any }) {
     return (
         <Container>
             <Header>
-                <HeaderImg src="" alt="WEROW" />
+                <HeaderImg src="" alt="WEROW" onClick={() => history.push('/')}/>
             </Header>
             <MainContainer>
                 <TitleBox>

@@ -7,6 +7,13 @@ import { emailCheck, idCheck, nicknameCheck } from '../shared/common';
 import { history, RootState } from '../redux/configureStore';
 import { UserInfo } from '../type';
 
+type userInfo = {
+    email: string,
+    id: string,
+    isMember: boolean,
+    photo: string,
+    provider: string
+}
 function Signup() {
     const dispatch = useDispatch();
     const [provider, setProvider] = useState<string>('EMAIL')
@@ -14,7 +21,10 @@ function Signup() {
     const [userEmail, setUserEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [passwordCheck, setPasswordCheck] = useState<string>('');
-
+    const [imgBase64, setImgBase64] = useState(""); // 파일 base64
+    const [photo, setPhoto] = useState<string>('');
+    const [fileUrl, setFileUrl] = useState<string>('');
+    const [data,setData] = useState({});
     const CLIENT_ID = "b49d403eab459f2dcb5d7b635c14139b";
     // const REDIRECT_URI = "https://0giri.com/oauth2/kakao";
     const REDIRECT_URI = "http://localhost:3000/oauth2/kakao";
@@ -22,7 +32,13 @@ function Signup() {
 
     const location:any = useLocation();
     const info = location.state;
-    const [user,setUser] = useState([]);
+    const [user,setUser] = useState<userInfo>({
+        email: '',
+        id: '',
+        isMember: false,
+        photo: '',
+        provider: 'EMAIL'
+    });
 
     const signup = (): void => {
         // 유효성 검증
@@ -58,35 +74,56 @@ function Signup() {
         //     window.alert('핸드폰 형식이 맞지 않습니다.');
         //     return;
         // }
-        const data = {
-            userEmail, nickname, password, provider
-        }
+            const data = {userEmail, nickname, password, provider, photo}
         dispatch(userActions.SignupDB(data));
     };
     useEffect(() => {
+        if(info){
+            setUserEmail(info.email)
+            setProvider(info.provider)
+            setPhoto(info.photo)
+        }
+        console.log(photo);
 
-        console.log(info);
 
-    })
-    // const handleFileOnChange = (event : any) => {
-    //     event.preventDefault();
-    //     const file = event.target.files[0];
-    //     // const reader = new FileReader();
-    //     setPhotoNum(file);
+    },[photo])
+    const handleFileOnChange = (event : any) => {
 
-    //     reader.onloadend = (e) => {
-    //       setPhotoNum(file);
-    //       setPreviewURL(reader.result);
-    //     }
-    //     if(file)
-    //       reader.readAsDataURL(file);
-    //   }
-    // }
+        const file = event.target.files[0];
+        console.log(typeof file);
+
+        const imageUrl = URL.createObjectURL(file);
+        setFileUrl(imageUrl);
+        // setPhoto(file)
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        // reader.onloadend = () => resolve(reader.result);
+        // reader.onloadend = () => {
+        //     // 2. 읽기가 완료되면 아래코드가 실행됩니다.
+        //     const base64 = reader.result;
+        //     if (base64) {
+        //       setImgBase64(base64.toString()); // 파일 base64 상태 업데이트
+        //     }
+        //   }
+        //   if (file) {
+        //     console.log(file);
+
+        //     reader.readAsDataURL(file); // 1. 파일을 읽어 버퍼에 저장합니다.
+        //     setPhoto(file); // 파일 상태 업데이트
+        //   }
+        reader.onloadend = () => {
+          setPreviewURL(reader.result);
+        }
+        if(file)
+          reader.readAsDataURL(file);
+          setPhoto(file);
+      }
+
     return (
         <>
             <Container>
                 <Header>
-                    <HeaderImg src="" alt="WEROW"/>
+                    <HeaderImg src="" alt="WEROW" onClick={() => history.push('/')}/>
                 </Header>
                 <MainContainer>
                     <TitleBox>
@@ -171,20 +208,15 @@ function Signup() {
                                         />
                                     </td>
                                 </tr> */}
-                                {/* <tr>
-                                    <th>사진</th>
+                                <tr>
+                                    <th hidden={!info}>프로필 사진</th>
                                     <td>
-                                        <input
-                                            type="text"
-                                            placeholder="ex) 010-0000-0000"
-                                            onChange={(e) => {
-                                                setPhoto(e.target.value);
-                                            }}
-                                        />
-                                        <input type="file"
-                                        onChange={handleFileOnChange}></input>
+                                        {info? null: <input type="file" name="photo" id="photo" hidden
+                                        onChange={handleFileOnChange}></input> }
+                                        {info? <img src={info.photo} alt='' height='200' width='200'></img>
+                                        : <img src={fileUrl} alt='' hidden height='200' width='200'></img>}
                                     </td>
-                                </tr> */}
+                                </tr>
                             </tbody>
                         </table>
                     </SignupBox>
@@ -314,3 +346,7 @@ const SnsBtnBox = styled.div`
     justify-content: space-between;
 `;
 export default Signup;
+function setPreviewURL(result: string | ArrayBuffer | null) {
+    throw new Error('Function not implemented.');
+}
+
